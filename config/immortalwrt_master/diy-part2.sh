@@ -49,6 +49,18 @@ fi
 rm -rf package/luci-app-amlogic
 git clone -b main https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
 #
+# Remove immortalwrt built-in daed and luci-app-daed
+rm -rf feeds/packages/net/daed
+rm -rf feeds/luci/applications/luci-app-daed
+#
+# Add QiuSimons luci-app-daed (replaces built-in one)
+rm -rf package/dae
+git clone -b master https://github.com/QiuSimons/luci-app-daed.git package/dae
+#
+# Add luci-app-easytier
+rm -rf package/luci-app-easytier
+git clone -b main https://github.com/EasyTier/luci-app-easytier.git package/luci-app-easytier
+#
 # Apply patches
 # git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
 #
