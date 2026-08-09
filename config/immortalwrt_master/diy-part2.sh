@@ -49,6 +49,14 @@ fi
 rm -rf package/luci-app-amlogic
 git clone -b main https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
 #
+# Upgrade golang to 1.26.5 (required for daed web frontend build)
+if [ -f ../config/immortalwrt_master/patches/golang-1.26.5-upgrade.patch ]; then
+    echo "Applying golang 1.26.5 upgrade patch..."
+    git apply --directory=feeds/packages ../config/immortalwrt_master/patches/golang-1.26.5-upgrade.patch
+else
+    echo "Warning: golang upgrade patch not found"
+fi
+#
 # Remove immortalwrt built-in daed and luci-app-daed
 rm -rf feeds/packages/net/daed
 rm -rf feeds/luci/applications/luci-app-daed
