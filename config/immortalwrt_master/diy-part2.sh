@@ -63,7 +63,7 @@ rm -rf feeds/luci/applications/luci-app-daed
 #
 # Add QiuSimons luci-app-daed (replaces built-in one)
 rm -rf package/dae
-git clone -b master https://github.com/QiuSimons/luci-app-daed.git package/dae
+git clone -b kix https://github.com/QiuSimons/luci-app-daed.git package/dae
 #
 # Add luci-app-easytier
 rm -rf package/luci-app-easytier
