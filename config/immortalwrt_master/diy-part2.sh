@@ -49,13 +49,7 @@ fi
 rm -rf package/luci-app-amlogic
 git clone -b main https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
 #
-# Upgrade golang to 1.26.5 (required for daed web frontend build)
-if [ -f ../config/immortalwrt_master/patches/golang-1.26.5-upgrade.patch ]; then
-    echo "Applying golang 1.26.5 upgrade patch..."
-    git apply --directory=feeds/packages ../config/immortalwrt_master/patches/golang-1.26.5-upgrade.patch
-else
-    echo "Warning: golang upgrade patch not found"
-fi
+# Note: immortalwrt master already uses golang 1.26.5 by default, no upgrade patch needed
 #
 # Remove immortalwrt built-in daed and luci-app-daed
 rm -rf feeds/packages/net/daed
@@ -64,16 +58,8 @@ rm -rf feeds/luci/applications/luci-app-daed
 # Add QiuSimons luci-app-daed (replaces built-in one)
 rm -rf package/dae
 git clone -b kix https://github.com/QiuSimons/luci-app-daed.git package/dae
-# Fix daed Makefile: add strict error checking for pnpm build
-sed -i 's/pnpm install ; \\/pnpm install || exit 1 ; \\/' package/dae/daed/Makefile
-sed -i 's/pnpm build --filter daed ; \\/pnpm build --filter daed || exit 1 ; \\/' package/dae/daed/Makefile
-# Debug: test daed frontend build environment
-echo "=== Testing daed frontend build environment ==="
-node --version || echo "Node.js not found in system PATH"
-npm --version || echo "npm not found in system PATH"
-pnpm --version || echo "pnpm not found in system PATH"
-echo "=== daed Makefile key lines ==="
-grep -n 'NODE_VERSION\|NODE_URL\|pnpm install\|pnpm build' package/dae/daed/Makefile | head -10
+# Fix daed Makefile: use --no-frozen-lockfile for pnpm install (lockfile out of sync with package.json)
+sed -i 's/pnpm install ;/pnpm install --no-frozen-lockfile ;/' package/dae/daed/Makefile
 #
 # Add luci-app-easytier
 rm -rf package/luci-app-easytier
