@@ -64,6 +64,16 @@ rm -rf feeds/luci/applications/luci-app-daed
 # Add QiuSimons luci-app-daed (replaces built-in one)
 rm -rf package/dae
 git clone -b kix https://github.com/QiuSimons/luci-app-daed.git package/dae
+# Fix daed Makefile: add strict error checking for pnpm build
+sed -i 's/pnpm install ; \\/pnpm install || exit 1 ; \\/' package/dae/daed/Makefile
+sed -i 's/pnpm build --filter daed ; \\/pnpm build --filter daed || exit 1 ; \\/' package/dae/daed/Makefile
+# Debug: test daed frontend build environment
+echo "=== Testing daed frontend build environment ==="
+node --version || echo "Node.js not found in system PATH"
+npm --version || echo "npm not found in system PATH"
+pnpm --version || echo "pnpm not found in system PATH"
+echo "=== daed Makefile key lines ==="
+grep -n 'NODE_VERSION\|NODE_URL\|pnpm install\|pnpm build' package/dae/daed/Makefile | head -10
 #
 # Add luci-app-easytier
 rm -rf package/luci-app-easytier
