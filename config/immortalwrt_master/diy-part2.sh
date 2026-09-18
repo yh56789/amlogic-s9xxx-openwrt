@@ -47,10 +47,13 @@ fi
 #
 # Add luci-app-amlogic
 rm -rf package/luci-app-amlogic
+rm -rf package/feeds/luci/luci-app-dae
+rm -rf package/feeds/luci/luci-app-daed
+rm -rf package/feeds//packages/sing-box
 git clone -b main https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
 git clone https://github.com/kenzok8/openwrt-daede.git package/luci-app-daede
 git clone https://github.com/easytier/luci-app-easytier.git package/luci-app-easytier
-#
+git clone https://github.com/SagerNet/sing-box.git package/feeds//packages/sing-box
 # Apply patches
 # git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
 #
