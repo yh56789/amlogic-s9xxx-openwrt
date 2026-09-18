@@ -54,6 +54,7 @@ git clone -b main https://github.com/ophub/luci-app-amlogic.git package/luci-app
 git clone https://github.com/kenzok8/openwrt-daede.git package/luci-app-daede
 git clone https://github.com/easytier/luci-app-easytier.git package/luci-app-easytier
 git clone https://github.com/SagerNet/sing-box.git package/feeds//packages/sing-box
+git clone https://github.com/SagerNet/sing-box.git ./feeds/packages/net/sing-box
 # Apply patches
 # git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
 #
